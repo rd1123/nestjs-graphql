@@ -2,6 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type helloOutput {
+  name: String!
+  age: Float!
+}
+
+type outputPokemon {
+  name: String!
+  id: String!
+  type: String!
+  pokedex: Float!
+}
+
 type Query {
-  hello: String!
+  hello: helloOutput!
+  getAll: [outputPokemon!]!
+  getOneById(id: Float!): outputPokemon!
+}
+
+type Mutation {
+  createOnePokemon(data: createPokemon!): outputPokemon!
+}
+
+input createPokemon {
+  name: String!
+  type: String!
+  pokedex: Float!
 }

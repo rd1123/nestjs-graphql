@@ -1,9 +1,14 @@
 import { Query, Resolver } from '@nestjs/graphql';
+import { helloOutput } from './dto/register.dto';
 
 @Resolver()
 export class AppResolver {
-  @Query(() => String)
+  @Query(() => helloOutput)
   hello() {
-    return 'hello';
+    const output: helloOutput = {
+      name: 'Nick',
+      age: 20,
+    }
+    return output;
   }
 }
