@@ -16,12 +16,13 @@ type outputPokemon {
 
 type Query {
   hello: helloOutput!
-  getAll: [outputPokemon!]!
-  getOneById(id: Float!): outputPokemon!
+  getAll: [outputPokemon!]
+  getOneById(id: Float!): outputPokemon
 }
 
 type Mutation {
   createOnePokemon(data: createPokemon!): outputPokemon!
+  deteletePokemonById(id: Float!): String!
 }
 
 input createPokemon {

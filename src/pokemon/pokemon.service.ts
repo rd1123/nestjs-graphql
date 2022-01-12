@@ -25,12 +25,24 @@ export class PokemonService {
     console.log(result);
     return result;
   }
-  async createOnePokemon(pokemon: createPokemon): Promise<string> {
+
+  async createOnePokemon(pokemon: createPokemon): Promise<Pokemon> {
     try {
       const po = await this.pokemonRepository.save(pokemon);
-      return po.name;
+      return po;
     } catch (err) {
       throw new HttpException(err.message, 400);
     }
+  }
+
+  async deletePokemonById(id: number): Promise<string> {
+    let resultWording: string = '';
+    try {
+      await this.pokemonRepository.delete({ pokedex: id });
+      resultWording = 'delete success';
+    } catch (err) {
+      resultWording = 'delete fail'
+    }
+    return resultWording;
   }
 }
