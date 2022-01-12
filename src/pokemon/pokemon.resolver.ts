@@ -35,4 +35,12 @@ export class PokemonResolver {
   ): Promise<string> {
     return this.pokemonService.deletePokemonById(id);
   }
+
+  @Mutation(() => String)
+  async modifyById(
+    @Args('id') id: number,
+    @Args('name') name: string,
+  ): Promise<string> {
+    return this.pokemonService.modifyById(id, name);
+  }
 }

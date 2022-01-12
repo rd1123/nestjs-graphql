@@ -22,7 +22,8 @@ type Query {
 
 type Mutation {
   createOnePokemon(data: createPokemon!): outputPokemon!
-  deteletePokemonById(id: Float!): String!
+  deletePokemonById(id: Float!): String!
+  modifyById(name: String!, id: Float!): String!
 }
 
 input createPokemon {

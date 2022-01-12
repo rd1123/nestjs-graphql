@@ -6,10 +6,13 @@ import { createPokemon } from './dto/create-pokemon.dto';
 
 @Injectable()
 export class PokemonService {
+  private resultWording: string;
   constructor(
     @InjectRepository(Pokemon)
     private readonly pokemonRepository: Repository<Pokemon>
-  ) {}
+  ) {
+    this.resultWording = '';
+  }
 
   async getAllPokemon(): Promise<Pokemon[]> {
     const result = await this.pokemonRepository.find();
@@ -36,13 +39,28 @@ export class PokemonService {
   }
 
   async deletePokemonById(id: number): Promise<string> {
-    let resultWording: string = '';
     try {
       await this.pokemonRepository.delete({ pokedex: id });
-      resultWording = 'delete success';
+      this.resultWording = 'delete success';
     } catch (err) {
-      resultWording = 'delete fail'
+      this.resultWording = 'delete fail'
     }
-    return resultWording;
+    return this.resultWording;
+  }
+
+  async modifyById(id: number, name: string): Promise<string> {
+    try {
+      const findPokemon = await this.pokemonRepository.findOne({
+        pokedex: id
+      })
+
+      await this.pokemonRepository.update({ pokedex: findPokemon.pokedex }, {
+        name
+      });
+      this.resultWording = 'modify success';
+    } catch (err) {
+      this.resultWording = 'modify fail'
+    }
+    return this.resultWording;
   }
 }
